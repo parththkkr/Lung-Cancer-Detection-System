@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            background-color: #f1fdff;
+            padding: 20px;
+            height: 40vh;
+            width: 60%;
+            border-radius: 5px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            width: 55%;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            border: 2px solid #050000;
+            background-color: #d7cdcd;
+        }
+
+        button[type="submit"] {
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #005f77;
+        }
+
+        .uploaded-image {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .uploaded-image img {
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        @media screen and (max-width:600px) {
+            form {
+                height: 66vh;
+                width: auto;
+            }
+
+            .error-message {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>Cancer Detection System</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Choose an CT Scan Image:</h2>
+        <input type="file" id="image" name="image">
+        <button type="submit">Upload</button>
+    </form>
+    {% if uploaded_file_url %}
+    <div class="uploaded-image">
+        <img src="{{ uploaded_file_url }}" alt="Uploaded image">
+    </div>
+    {% endif %}
+    <div class="mess">
+        {% if message %}
+        <p class="error-message">{{ message }}</p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
